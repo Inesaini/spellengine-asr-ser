@@ -18,19 +18,23 @@ On the CREMA-D test split:
 
 | Model | Trainable params | WER ↓ | CER ↓ | Emotion accuracy ↑ | Emotion macro-F1 ↑ |
 |---|---|---|---|---|---|
-| Conformer (from scratch) | 5.05 M | 11.28% | 5.14% | 53.83% | 0.5253 |
-| **Whisper-Small + LoRA** | 2.07 M (of 243.5 M) | **0.15%** | **0.11%** | **75.84%** | **0.7543** |
+| Conformer (from scratch) | 5.05 M | 7.53% | 2.85% | 52.48% | 0.5138 |
+| **Whisper-Small + LoRA** | 2.07 M (of 243.8 M) | **0.15%** | **0.11%** | **76.91%** | **0.7667** |
 
 Per-emotion results for Whisper-Small + LoRA:
 
 | Emotion | Precision | Recall | F1 |
 |---|---|---|---|
-| Neutral | 0.77 | 0.84 | 0.80 |
-| Happy | 0.77 | 0.80 | 0.78 |
-| Sad | 0.70 | 0.71 | 0.70 |
-| Anger | 0.81 | 0.89 | 0.85 |
-| Fear | 0.75 | 0.71 | 0.73 |
-| Disgust | 0.74 | 0.59 | 0.66 |
+| Neutral | 0.76 | 0.88 | 0.81 |
+| Happy | 0.82 | 0.82 | 0.82 |
+| Sad | 0.72 | 0.75 | 0.73 |
+| Anger | 0.79 | 0.86 | 0.82 |
+| Fear | 0.80 | 0.64 | 0.71 |
+| Disgust | 0.73 | 0.67 | 0.70 |
+
+The exported Conformer runs a 3-second clip in 14.7 ms on CPU with ONNX Runtime (28.0 ms in
+PyTorch) and weighs 20.5 MB, which is why it is kept as the lightweight option despite its
+lower accuracy.
 
 **Reading the WER:** CREMA-D contains only 12 distinct sentences, and with the default
 file-level split the same actors appear in training and test data. The word error rate
@@ -75,7 +79,7 @@ its power.
 
 | File | Description |
 |---|---|
-| `nlp-mini-projet.ipynb` | The full notebook (code only, without saved outputs) |
+| `nlp-mini-projet.ipynb` | The full notebook, with training logs, results and figures |
 | `requirements.txt` | Python dependencies |
 
 ## Dataset
